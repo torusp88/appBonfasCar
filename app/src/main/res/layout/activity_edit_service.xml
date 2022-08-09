@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtPlateES"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:text="Plate"
+        android:textSize="64dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtNameES"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="164dp"
+        android:text="Nome:"
+        app:layout_constraintBaseline_toBaselineOf="@+id/edtName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPlateES" />
+
+    <EditText
+        android:id="@+id/edtName"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:ems="14"
+        android:hint="Nome do Carro"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/edtTelephone"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/txtTelephoneES"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Telefone:"
+        app:layout_constraintBaseline_toBaselineOf="@+id/edtTelephone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNameES" />
+
+    <EditText
+        android:id="@+id/edtTelephone"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:ems="14"
+        android:hint="Telefone"
+        android:inputType="phone"
+        app:layout_constraintBottom_toTopOf="@+id/edtAdressES"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/txtAdressES"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:text="Endereço:"
+        app:layout_constraintBaseline_toBaselineOf="@+id/edtAdressES"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTelephoneES" />
+
+    <EditText
+        android:id="@+id/edtAdressES"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:ems="14"
+        android:hint="Endereço"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/edtObsES"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/txtObsES"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Obs:"
+        app:layout_constraintBaseline_toBaselineOf="@+id/edtObsES"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAdressES" />
+
+    <EditText
+        android:id="@+id/edtObsES"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:ems="14"
+        android:hint="Obs"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/edtPriceES"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/txtPriceES"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Preço:"
+        app:layout_constraintBaseline_toBaselineOf="@+id/edtPriceES"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtObsES" />
+
+    <EditText
+        android:id="@+id/edtPriceES"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:ems="14"
+        android:hint="Preço"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/edtOwnerES"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/txtOwnerES"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Proprietário(a):"
+        app:layout_constraintBaseline_toBaselineOf="@+id/edtOwnerES"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPriceES" />
+
+    <EditText
+        android:id="@+id/edtOwnerES"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:ems="14"
+        android:hint="Proprietário(a)"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/buttonRefreshES"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <Switch
+        android:id="@+id/switchWaxES"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginBottom="12dp"
+        android:text="Cera?"
+        app:layout_constraintBottom_toTopOf="@+id/switchDeliverES"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Switch
+        android:id="@+id/switchDeliverES"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginBottom="12dp"
+        android:text="Entregar?"
+        app:layout_constraintBottom_toTopOf="@+id/switchPayed"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Switch
+        android:id="@+id/switchPayed"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginBottom="12dp"
+        android:text="Foi pago?"
+        app:layout_constraintBottom_toTopOf="@+id/edtName"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/buttonDeleteES"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Excluir"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/txtPlateES"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/txtAdressES"
+        app:layout_constraintTop_toBottomOf="@+id/switchPayed"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/buttonRefreshES"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Atualizar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintStart_toEndOf="@+id/buttonDeleteES"
+        app:layout_constraintTop_toBottomOf="@+id/switchPayed"
+        app:layout_constraintVertical_bias="1.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>

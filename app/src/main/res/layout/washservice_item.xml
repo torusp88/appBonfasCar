@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="5dp"
+    android:background="#ECFFDC"
+    >
+
+    <TextView
+        android:id="@+id/txtPlate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Plate"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.666" />
+
+    <TextView
+        android:id="@+id/txtCar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Car"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="-1dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <TextView
+        android:id="@+id/txtPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="54dp"
+        tools:layout_editor_absoluteY="24dp" />
+
+    <TextView
+        android:id="@+id/txtPG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PG"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtDeliver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Deliver"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

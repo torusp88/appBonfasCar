@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.viewholder.AddWashActivity">
+
+    <Button
+        android:id="@+id/btnAddWashAW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="48dp"
+        android:text="Adicionar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnCancelAW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancelar"
+        app:layout_constraintBaseline_toBaselineOf="@id/btnAddWashAW"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnAddWashAW"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Switch
+        android:id="@+id/swtPayedAW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:minHeight="48dp"
+        android:text="Pago?"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddWashAW"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Switch
+        android:id="@+id/swtWaxAW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:minHeight="48dp"
+        android:text="Com cera?"
+        app:layout_constraintBottom_toTopOf="@+id/swtPayedAW"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Switch
+        android:id="@+id/swtDeliverAW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:text="Entregar?"
+        app:layout_constraintBottom_toTopOf="@+id/swtWaxAW"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/edtObsAW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Obs:"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:ems="13"
+        app:layout_constraintBottom_toTopOf="@+id/swtDeliverAW"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/txtObsAW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Obs:"
+        app:layout_constraintBaseline_toBaselineOf="@id/edtObsAW"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edtPriceAW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:ems="13"
+        android:hint="Preço"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/edtObsAW"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/txtPriceAW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Preço:"
+        app:layout_constraintBaseline_toBaselineOf="@id/edtPriceAW"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtPlateAC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Plate"
+        android:textSize="64dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/edtPriceAW"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

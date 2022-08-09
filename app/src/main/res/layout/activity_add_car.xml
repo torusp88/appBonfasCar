@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.viewholder.AddCarActivity">
+    # plate, name, owner, telephone, address
+
+    <Button
+        android:id="@+id/btnCancelAC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginBottom="28dp"
+        android:text="Cancelar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnNextAC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Próximo"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnCancelAC"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCancelAC" />
+
+    <EditText
+        android:id="@+id/edtAdressAC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="13"
+        android:hint="Endereço"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnNextAC"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/txtAdressAC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Endereço"
+        app:layout_constraintBaseline_toBaselineOf="@id/edtAdressAC"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/edtTelephoneAC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:ems="13"
+        android:hint="Telefone"
+        android:inputType="phone"
+        app:layout_constraintBottom_toTopOf="@id/edtAdressAC"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/txtTelephoneAC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Telefone"
+        app:layout_constraintBaseline_toBaselineOf="@id/edtTelephoneAC"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/edtOwnerAC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Proprietário"
+        android:ems="13"
+        app:layout_constraintBottom_toTopOf="@id/edtTelephoneAC"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/txtOwnerAC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Proprietário"
+        app:layout_constraintBaseline_toBaselineOf="@id/edtOwnerAC"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/edtNameAC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Nome"
+        android:ems="13"
+        app:layout_constraintBottom_toTopOf="@id/edtOwnerAC"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/txtNameAC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome"
+        app:layout_constraintBaseline_toBaselineOf="@id/edtNameAC"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txtPlateAC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Plate"
+        android:textSize="64dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/edtNameAC"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

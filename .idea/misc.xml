@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Projetos/app/app/src/main/res/layout/activity_add_car.xml" value="0.27291666666666664" />
+        <entry key="..\:/Projetos/app/app/src/main/res/layout/activity_add_wash.xml" value="0.33" />
+        <entry key="..\:/Projetos/app/app/src/main/res/layout/activity_car_add.xml" value="0.27291666666666664" />
+        <entry key="..\:/Projetos/app/app/src/main/res/layout/activity_edit_service.xml" value="0.33" />
+        <entry key="..\:/Projetos/app/app/src/main/res/layout/activity_edit_wash.xml" value="0.2765625" />
+        <entry key="..\:/Projetos/app/app/src/main/res/layout/activity_main.xml" value="0.34427083333333336" />
+        <entry key="..\:/Projetos/app/app/src/main/res/layout/fragment_wash.xml" value="0.27239583333333334" />
+        <entry key="..\:/Projetos/app/app/src/main/res/layout/fragment_washservice.xml" value="0.2765625" />
+        <entry key="..\:/Projetos/app/app/src/main/res/layout/washservice_item.xml" value="0.3614583333333333" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
