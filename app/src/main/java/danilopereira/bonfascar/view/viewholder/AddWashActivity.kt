@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import danilopereira.bonfascar.databinding.ActivityAddWashBinding
 import danilopereira.bonfascar.entities.Car
 import danilopereira.bonfascar.entities.Wash
@@ -21,29 +22,29 @@ class AddWashActivity : AppCompatActivity() {
         binding = ActivityAddWashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //Define o onClickListener do botão Cancelar
         binding.btnCancelAW.setOnClickListener {
+            //Cria a intent para voltar ao MainActivity
             val intent = Intent(this@AddWashActivity, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
-
+        //Cria uma constante de SharedPreferences para pegar os dados passados pela Activity anterior
         val sharedPreference = getSharedPreferences("addCar", Context.MODE_PRIVATE)
-        var washDate = sharedPreference.getInt("washDate", 0)
-        val carPlate = sharedPreference.getString("carPlate", "")
-        var carName = sharedPreference.getString("carName", "")
-        var carOwner = sharedPreference.getString("carOwner", "")
-        var carTelephone = sharedPreference.getString("carTelephone", "")
-        var carAddress = sharedPreference.getString("carAddress", "")
 
+        //Cria um objeto de Car a ser adicionado ao Banco de dados
         var newCar = Car()
-        newCar.plate = carPlate.toString()
-        newCar.name = carName.toString()
-        newCar.owner = carOwner.toString()
-        newCar.telephone = carTelephone.toString().toInt()
-        newCar.address = carAddress.toString()
+        newCar.plate = sharedPreference.getString("carPlate", "").toString()
+        newCar.name = sharedPreference.getString("carName", "").toString()
+        newCar.owner = sharedPreference.getString("carOwner", "").toString()
+        newCar.telephone = sharedPreference.getString("carTelephone", "").toString().toInt()
+        newCar.address = sharedPreference.getString("carAddress", "").toString()
 
+        //Define o onClickListener do botão Adicionar
         binding.btnAddWashAW.setOnClickListener {
+            //Cria um objeto de Wash a ser adicionado ao Banco de dados
             var newWash = Wash()
-            newWash.date = washDate
+            newWash.date = sharedPreference.getInt("washDate", 0)
             newWash.car = newCar
             newWash.deliver = binding.swtDeliverAW.isChecked
             if(binding.edtPriceAW.text.toString() != "") {
@@ -53,17 +54,24 @@ class AddWashActivity : AppCompatActivity() {
             newWash.payed = binding.swtPayedAW.isChecked
             newWash.obs = binding.edtObsAW.text.toString()
 
+            //Cria um novo serviço de WashService para adicionar essa lavagem ao DB utilizando o método POST
             val addWash = RetrofitClient.createService(WashService::class.java)
             val addNewWash: Call<Wash> = addWash.addWashService(newWash)
-
+            //Cria a chamada a API para adicionar um washService
             addNewWash.enqueue(object: Callback<Wash>{
+                //Caso a chamada tenha uma resposta
                 override fun onResponse(call: Call<Wash>, response: Response<Wash>) {
+                    //Cria a intent para voltar ao MainActivity
                     val intent = Intent(this@AddWashActivity, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
-
+                //Caso a chamada falhe
                 override fun onFailure(call: Call<Wash>, t: Throwable) {
-                    val s = ""
+                    Toast.makeText(this@AddWashActivity, "Falha na conexão com o banco de dados, verifique a sua conexão a Internet", Toast.LENGTH_LONG).show()
+                    val intent = Intent(this@AddWashActivity, AddWashActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
 
             })

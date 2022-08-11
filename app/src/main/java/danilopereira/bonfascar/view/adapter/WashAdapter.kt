@@ -16,13 +16,13 @@ class WashAdapter( private val washList: MutableList<Wash>):
 
     private lateinit var mListener : onItemCLickListener
 
+    //Cria a intefarce de onItemClickListerner para adicionar um clickListener em todos os itens do adapter
     interface onItemCLickListener{
         fun onItemCLick(position: Int)
     }
 
     fun setOnClickListener(listener: onItemCLickListener){
         mListener = listener
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WashViewHolder {

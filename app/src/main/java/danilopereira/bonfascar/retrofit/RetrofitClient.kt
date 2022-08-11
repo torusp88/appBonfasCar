@@ -10,7 +10,9 @@ import retrofit2.create
 
 class RetrofitClient {
 
+
     companion object{
+        //Cria o Singleton do Retrofit
         private lateinit var INSTANCE: Retrofit
 
         private const val BASE_URL = "http://192.168.15.11:8080/" // 192.168.15.11
@@ -27,7 +29,7 @@ class RetrofitClient {
                 return INSTANCE
 
         }
-
+        //
         fun <S> createService(c: Class<S>): S{
             return getRetrofitInstance().create(c)
         }

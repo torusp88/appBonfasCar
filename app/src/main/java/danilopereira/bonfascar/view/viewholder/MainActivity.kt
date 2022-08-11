@@ -34,35 +34,47 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //Cria uma constante de SharedPreferences para adicionar dados a serem repassados a proxima
+        //Activity ao adicionar um carro
         val sP = getSharedPreferences("addCar", Context.MODE_PRIVATE)
         val editor = sP.edit()
 
+        //Cria a constante de Data para ser adicionado ao cabeçalho da MainActivity
         val sdf = SimpleDateFormat("dd/M/yyyy")
         val currentDate = sdf.format(Date())
 
+        //cria a constante de Data para ser adicionada no banco de dados
         val sqlDate = SimpleDateFormat("ddMyyyy")
         val sqlCurrentDate = sqlDate.format(Date())
 
+        //Define o texto do cabeçalho da MainActivity
         binding.textHeader.setText("São Paulo " + currentDate)
 
+        /*
+        *Cria o onClickListener do botão da MainActivity que adicionará um novo serviço a lista de
+        * serviços
+         */
         binding.imgAdd.setOnClickListener {
-            val builder = AlertDialog.Builder(this)
-            val edtPlaca = EditText(this)
-            edtPlaca.setHint("Placa")
-            edtPlaca.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            val builder = AlertDialog.Builder(this) // cria uma caixa de dialogo
+            val edtPlaca = EditText(this)// cria um EditText para a caixa de dialogo
+            edtPlaca.setHint("Placa") // Põe uma dica para o EditText
+            edtPlaca.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD //Muda o inputType do EditText, para que ele tenha letras e numeros no teclado
             builder.setMessage("Digite a placa do carro:")
                 .setCancelable(false)
-                .setView(edtPlaca)
+                .setView(edtPlaca)//adiciona o EditText na caixa de dialogo
                 .setPositiveButton("Adicionar") { dialog, id ->
-                    //Buscar placa e adicionar dados no sharedPreferences
-                    val carService = RetrofitClient.createService(CarService::class.java)
-                    val requestCar: Call<Car> = carService.getCar(edtPlaca.text.toString())
+                    //Busca placa e adicionar dados no sharedPreferences
+                    val carService = RetrofitClient.createService(CarService::class.java) // cria um novo serviço de CarService
+                    val requestCar: Call<Car> = carService.getCar(edtPlaca.text.toString()) // Busca por um carro no DB, a partir do texto do EditText
+                    //cria uma chamada a API para receber os dados referente a placa do carro
                     requestCar.enqueue(object : Callback<Car>{
+                        //Caso a chamada obtenha uma resposta
                         override fun onResponse(call: Call<Car>, r: Response<Car>) {
                             var isCarNew: Boolean = false
-                            if(r.body()?.name == null){
+                            if(r.body()?.name == null){ // checa se o body() esta vazio, para determinar se na proxima Activity utilizaremos POST ou PUT
                                 isCarNew = true
                             }
+                            //Adiciona os dados pertinentes no SharedPreferences a serem buscados na proxima Activity
                             editor.apply {
                                 putInt("washDate", sqlCurrentDate.toString().toInt())
                                 putString("carPlate", edtPlaca.text.toString().uppercase())
@@ -73,19 +85,20 @@ class MainActivity : AppCompatActivity() {
                                 putBoolean("isCarNew", isCarNew)
                                 apply() //assync commit() = sync
                             }
+                            //Cria a Activity de adicionar(ou atualizar) um novo carro
                             val intent = Intent(this@MainActivity, AddCarActivity::class.java)
                             startActivity(intent)
                         }
-
+                        //Caso a chamada falhe
                         override fun onFailure(call: Call<Car>, t: Throwable) {
-                            val s =""
+                            Toast.makeText(this@MainActivity, "Falha na conexão com o banco de dados, verifique a sua conexão a Internet", Toast.LENGTH_LONG).show()
                         }
 
                     })
 
                 }
                 .setNegativeButton("Cancelar") { dialog, id ->
-                    // Cancela a exclusão
+                    // Cancela a adição(ou atualização) de um novo carro
                     dialog.dismiss()
                 }
             val alert = builder.create()
@@ -96,53 +109,47 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
+        //cria a constante de Data para ser adicionada no banco de dados
         val sdf = SimpleDateFormat("ddMyyyy")
         val currentDate = sdf.format(Date())
 
+        //Faz o binding da recyclerView e define o seu LayoutManager
         val recyclerViewWashServices = binding.recyclerViewWashServices
         recyclerViewWashServices.layoutManager = LinearLayoutManager(this)
 
+        //Cria uma constante de SharedPreferences para adicionar dados a serem repassados a proxima
+        //Activity referentes ao item clicado no recyclerView
         val sharedPreference = getSharedPreferences("washService", Context.MODE_PRIVATE)
         val editor = sharedPreference.edit()
-        val washService = RetrofitClient.createService(WashService::class.java)
-        val washCall: Call<List<Wash>> = washService.listByDate(currentDate)
+        val washService = RetrofitClient.createService(WashService::class.java) //Cria um novo serviço de WashService
+        val washCall: Call<List<Wash>> = washService.listByDate(currentDate) //Busca os washServices do DB para a data atual
+        //Cria uma chamada a API para receber uma lista dos serviços do dia e lista-los no washAdapter
         washCall.enqueue(object : Callback<List<Wash>>{
             override fun onResponse(call: Call<List<Wash>>, r: Response<List<Wash>>) {
+                //Caso a chamada tenha uma resposta
                 val list = r.body()
                 if (list != null) {
-                    washAdapter = WashAdapter( list.toMutableList())
+                    washAdapter = WashAdapter( list.toMutableList()) //define o adapter passando a lista de washServices como parâmetro
+                    //Define o onCLickListener de um item do Adapter
                     washAdapter.setOnClickListener(object : WashAdapter.onItemCLickListener{
                         override fun onItemCLick(position: Int) {
-                            var washId = list[position].id
-                            var washDate = list[position].date
-                            var carPlate = list[position].car.plate
-                            var carName = list[position].car.name
-                            var carOwner = list[position].car.owner
-                            var carTelephone = list[position].car.telephone.toString()
-                            var carAddress = list[position].car.address
-                            var washDeliver = list[position].deliver //Boolean
-                            var washPrice = list[position].price.toString()
-                            var washWax = list[position].wax//Boolean
-                            var washPayed = list[position].payed//Boolean
-                            var washObs = list[position].obs
-
-
+                           // Adiciona os dados do item clicado no SharedPreferences "washService"
                             editor.apply {
-                                putLong("washId", washId)
-                                putInt("washDate", washDate)
-                                putString("carPlate", carPlate)
-                                putString("carName", carName)
-                                putString("carOwner", carOwner)
-                                putString("carTelephone", carTelephone)
-                                putString("carAddress", carAddress)
-                                putBoolean("washDeliver", washDeliver)
-                                putString("washPrice", washPrice)
-                                putBoolean("washWax", washWax)
-                                putBoolean("washPayed", washPayed)
-                                putString("washObs", washObs)
+                                putLong("washId", list[position].id)
+                                putInt("washDate", list[position].date)
+                                putString("carPlate", list[position].car.plate)
+                                putString("carName", list[position].car.name)
+                                putString("carOwner", list[position].car.owner)
+                                putString("carTelephone", list[position].car.telephone.toString())
+                                putString("carAddress", list[position].car.address)
+                                putBoolean("washDeliver", list[position].deliver )
+                                putString("washPrice", list[position].price.toString())
+                                putBoolean("washWax", list[position].wax)
+                                putBoolean("washPayed", list[position].payed)
+                                putString("washObs", list[position].obs)
                                 apply() //assync commit() = sync
                             }
-                            //Toast.makeText(this@MainActivity, "$mPlate", Toast.LENGTH_SHORT).show()
+                            //
                             val intent = Intent(this@MainActivity, EditServiceActivity::class.java)
                             startActivity(intent)
                         }
@@ -150,9 +157,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 recyclerViewWashServices.adapter = washAdapter
             }
-
+            //Caso a chamada falhe
             override fun onFailure(call: Call<List<Wash>>, t: Throwable) {
-                val s = ""
+                Toast.makeText(this@MainActivity, "Falha na conexão com o banco de dados, verifique a sua conexão a Internet", Toast.LENGTH_LONG).show()
             }
 
         })

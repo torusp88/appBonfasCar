@@ -24,41 +24,34 @@ class EditServiceActivity : AppCompatActivity() {
         binding = ActivityEditServiceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //Cria uma constante de SharedPreferences para pegar os dados passados pela Activity anterior
         val sharedPreference = getSharedPreferences("washService", Context.MODE_PRIVATE)
-        val washId = sharedPreference.getLong("washId", 0 )
-        var washDate = sharedPreference.getInt("washDate", 0)
-        val carPlate = sharedPreference.getString("carPlate", "")
-        val carName = sharedPreference.getString("carName", "")
-        val carOwner = sharedPreference.getString("carOwner", "")
-        val carTelephone = sharedPreference.getString("carTelephone", "")
-        val carAddress = sharedPreference.getString("carAddress", "")
-        val washDeliver = sharedPreference.getBoolean("washDeliver", false)
-        val washPrice = sharedPreference.getString("washPrice", "")
-        val washWax = sharedPreference.getBoolean("washWax", false)
-        val washPayed = sharedPreference.getBoolean("washPayed", false)
-        val washObs = sharedPreference.getString("washObs", "")
 
-        binding.txtPlateES.setText(carPlate)
-        binding.edtName.setText(carName)
-        binding.edtTelephone.setText(carTelephone)
-        binding.edtAdressES.setText(carAddress)
-        binding.edtObsES.setText(washObs)
-        binding.edtPriceES.setText(washPrice)
-        binding.edtOwnerES.setText(carOwner)
-        binding.switchWaxES.isChecked = washWax
-        binding.switchDeliverES.isChecked = washDeliver
-        binding.switchPayed.isChecked = washPayed
+        //Insere os dados passados pela Activity anterior nos respectivos lugares
+        binding.txtPlateES.setText(sharedPreference.getString("carPlate", ""))
+        binding.edtName.setText(sharedPreference.getString("carName", ""))
+        binding.edtTelephone.setText(sharedPreference.getString("carTelephone", ""))
+        binding.edtAdressES.setText(sharedPreference.getString("carAddress", ""))
+        binding.edtObsES.setText(sharedPreference.getString("washObs", ""))
+        binding.edtPriceES.setText(sharedPreference.getString("washPrice", ""))
+        binding.edtOwnerES.setText(sharedPreference.getString("carOwner", ""))
+        binding.switchWaxES.isChecked = sharedPreference.getBoolean("washWax", false)
+        binding.switchDeliverES.isChecked = sharedPreference.getBoolean("washDeliver", false)
+        binding.switchPayed.isChecked = sharedPreference.getBoolean("washPayed", false)
 
+
+        //Define o onClickListener do botão Deletar
         binding.buttonDeleteES.setOnClickListener {
+            //Cria uma chamada a API para deletar um serviço por meio do método DELETE
             val washService = RetrofitClient.createService(WashService::class.java)
-            val requestCall: Call<Unit> = washService.deleteWashService(washId)
+            val requestCall: Call<Unit> = washService.deleteWashService(sharedPreference.getLong("washId", 0 ))
 
-            //Fazer o pop-up perguntando se tem certeza que quer excluir aquela lavagem
-
+            //Faz o pop-up perguntando se tem certeza que quer excluir aquela lavagem
             val builder = AlertDialog.Builder(this)
             builder.setMessage("Tem certeza que deseja deletar essa lavagem?")
                 .setCancelable(false)
                 .setPositiveButton("Sim") { dialog, id ->
+                    //Caso a chamada tenha uma resposta
                     // Deleta a washService especifico e volta para a MainActivity
                     requestCall.enqueue(object: Callback<Unit>{
                         override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
@@ -66,9 +59,12 @@ class EditServiceActivity : AppCompatActivity() {
                             startActivity(intent)
                             finish()
                         }
-
+                        //Caso a chamada falhe
                         override fun onFailure(call: Call<Unit>, t: Throwable) {
-                            val s = ""
+                            Toast.makeText(this@EditServiceActivity, "Falha na conexão com o banco de dados, verifique a sua conexão a Internet", Toast.LENGTH_LONG).show()
+                            val intent = Intent(this@EditServiceActivity, AddWashActivity::class.java)
+                            startActivity(intent)
+                            finish()
                         }
 
                     })
@@ -82,11 +78,12 @@ class EditServiceActivity : AppCompatActivity() {
 
 
         }
-
+        //Define o onClickListener do botão Atualizar
         binding.buttonRefreshES.setOnClickListener {
+            //Cria um objeto de Wash a ser atualizado do Banco de Dados
             val newWash = Wash()
-            newWash.id = washId
-            newWash.date = washDate
+            newWash.id = sharedPreference.getLong("washId", 0 )
+            newWash.date = sharedPreference.getInt("washDate", 0)
             newWash.car.plate = binding.txtPlateES.text.toString()
             newWash.car.name = binding.edtName.text.toString()
             newWash.car.owner = binding.edtOwnerES.text.toString()
@@ -98,18 +95,23 @@ class EditServiceActivity : AppCompatActivity() {
             newWash.payed = binding.switchPayed.isChecked
             newWash.obs = binding.edtObsES.text.toString()
 
+            //Cria uma nova chamada a API para atualizar um serviço por meio do método PUT
             val washService = RetrofitClient.createService(WashService::class.java)
-            val requestCall: Call<Wash> = washService.updateWashService(washId, newWash)
-
+            val requestCall: Call<Wash> = washService.updateWashService(newWash.id, newWash)
             requestCall.enqueue(object : Callback<Wash>{
+                //Caso a chamada tenha uma resposta
                 override fun onResponse(call: Call<Wash>, response: Response<Wash>) {
+                    //Cria a intent para voltar ao MainActivity
                     val intent = Intent(this@EditServiceActivity, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
-
+                //Caso a chamada falhe
                 override fun onFailure(call: Call<Wash>, t: Throwable) {
-                    val s = ""
+                    Toast.makeText(this@EditServiceActivity, "Falha na conexão com o banco de dados, verifique a sua conexão a Internet", Toast.LENGTH_LONG).show()
+                    val intent = Intent(this@EditServiceActivity, AddWashActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
 
             })
